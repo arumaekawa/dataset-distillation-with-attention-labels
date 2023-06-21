@@ -1,0 +1,74 @@
+base:
+  experiment_name: ${data.task_name}.${model.model_name}
+  method: label_${distilled_data.label_type}.al_${distilled_data.attention_label_type}.lr_init_${distilled_data.lr_init}.distill_lr_${train.lr_inputs_embeds}
+  run_name: ${base.method}.${now:%Y-%m-%d.%H-%M-%S}
+  save_dir_root: ./save
+  save_method_dir: ${base.save_dir_root}/${base.experiment_name}/${base.method}
+  save_dir: ${base.save_method_dir}/${now:%Y-%m-%d.%H-%M-%S}
+  data_dir_root: ./data
+  seed: 42
+
+data:
+  task_name: ag_news
+  datasets_path: ${base.data_dir_root}/${data.task_name}/datasets
+  preprocessed_datasets_path: ${base.data_dir_root}/${data.task_name}/datasets_for_${model.model_name}
+  train_batch_size: 32
+  valid_batch_size: 256
+  test_batch_size: 256
+  num_proc: 1
+  force_preprocess: False
+
+model:
+  task_name: ${data.task_name}
+  model_name: bert-base-uncased
+  use_pretrained_model: True
+  disable_dropout: True
+
+distilled_data:
+  pretrained_data_path: null
+  data_per_label: 1
+  attention_label_type: none # [none, cls, all]
+  attention_loss_lambda: 1.0
+  seq_length: 512
+  label_type: hard # [hard, soft, unrestricted]
+  lr_for_step: True
+  lr_init: 1.0e-2
+  lr_linear_decay: False
+  fix_order: True
+
+learner_train:
+  train_step: 1
+  batch_size_per_label: 1
+
+train:
+  skip_train: False
+  inner_loop: ${learner_train.train_step}
+  epoch: 30
+  lr_inputs_embeds: 1.0e-2
+  lr_attention_labels: ${train.lr_inputs_embeds}
+  lr_labels: ${train.lr_inputs_embeds}
+  lr_lr: ${train.lr_inputs_embeds}
+  optimizer_type: adamw # [sgd, adam, adamw]
+  scheduler_type: linear
+  warmup_ratio: 0.1
+  weight_decay: 0.0
+  max_grad_norm: 1.0
+  val_interval: 1
+  log_interval: -1
+  n_eval_model: 20
+  save_ckpt_dir: ${base.save_dir}/checkpoints
+  fp16: False
+  bf16: False
+
+evaluate:
+  task_name: ${data.task_name}
+  n_eval_model: 100
+  fp16: False
+  bf16: False
+
+hydra:
+  run:
+    dir: ${base.save_dir}
+  sweep:
+    dir: ${base.save_method_dir}
+    subdir: ${base.run_name}
