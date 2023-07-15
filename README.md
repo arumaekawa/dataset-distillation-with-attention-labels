@@ -64,5 +64,19 @@ Directory structure:
 ## Citation
 
 ```
-[to appear]
+@inproceedings{maekawa-etal-2023-dataset,
+    title = "Dataset Distillation with Attention Labels for Fine-tuning {BERT}",
+    author = "Maekawa, Aru  and
+      Kobayashi, Naoki  and
+      Funakoshi, Kotaro  and
+      Okumura, Manabu",
+    booktitle = "Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)",
+    month = jul,
+    year = "2023",
+    address = "Toronto, Canada",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2023.acl-short.12",
+    pages = "119--127",
+    abstract = "Dataset distillation aims to create a small dataset of informative synthetic samples to rapidly train neural networks that retain the performance of the original dataset. In this paper, we focus on constructing distilled few-shot datasets for natural language processing (NLP) tasks to fine-tune pre-trained transformers. Specifically, we propose to introduce attention labels, which can efficiently distill the knowledge from the original dataset and transfer it to the transformer models via attention probabilities. We evaluated our dataset distillation methods in four various NLP tasks and demonstrated that it is possible to create distilled few-shot datasets with the attention labels, yielding impressive performances for fine-tuning BERT. Specifically, in AGNews, a four-class news classification task, our distilled few-shot dataset achieved up to 93.2{\%} accuracy, which is 98.5{\%} performance of the original dataset even with only one sample per class and only one gradient step.",
+}
 ```
