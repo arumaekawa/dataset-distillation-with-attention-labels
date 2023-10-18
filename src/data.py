@@ -41,6 +41,18 @@ TASK_ATTRS = {
         "problem_type": "single_label_classification",
         "test_split_key": "validation",
     },
+    "qqp": {
+        "load_args": ("glue", "qqp"),
+        "sentence_keys": ("question1", "question2"),
+        "problem_type": "single_label_classification",
+        "test_split_key": "validation",
+    },
+    "mnli": {
+        "load_args": ("glue", "mnli"),
+        "sentence_keys": ("premise", "hypothesis"),
+        "problem_type": "single_label_classification",
+        "test_split_key": "validation_matched",
+    },
 }
 
 
