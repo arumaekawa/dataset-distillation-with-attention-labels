@@ -21,6 +21,7 @@ TASK_ATTRS = {
         "sentence_keys": ("text",),
         "problem_type": "single_label_classification",
         "test_split_key": "test",
+        "metric_keys": ("accuracy",),
     },
     # GLUE
     "mrpc": {
@@ -28,30 +29,35 @@ TASK_ATTRS = {
         "sentence_keys": ("sentence1", "sentence2"),
         "problem_type": "single_label_classification",
         "test_split_key": "validation",
+        "metric_keys": ("glue", "mrpc"),
     },
     "qnli": {
         "load_args": ("glue", "qnli"),
         "sentence_keys": ("question", "sentence"),
         "problem_type": "single_label_classification",
         "test_split_key": "validation",
+        "metric_keys": ("glue", "qnli"),
     },
     "sst2": {
         "load_args": ("glue", "sst2"),
         "sentence_keys": ("sentence",),
         "problem_type": "single_label_classification",
         "test_split_key": "validation",
+        "metric_keys": ("glue", "sst2"),
     },
     "qqp": {
         "load_args": ("glue", "qqp"),
         "sentence_keys": ("question1", "question2"),
         "problem_type": "single_label_classification",
         "test_split_key": "validation",
+        "metric_keys": ("glue", "qqp"),
     },
     "mnli": {
         "load_args": ("glue", "mnli"),
         "sentence_keys": ("premise", "hypothesis"),
         "problem_type": "single_label_classification",
         "test_split_key": "validation_matched",
+        "metric_keys": ("glue", "mnli"),
     },
 }
 

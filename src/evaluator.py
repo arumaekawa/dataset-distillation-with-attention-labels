@@ -10,18 +10,12 @@ from torch.nn import functional as F
 from torch.utils.data import DataLoader
 from tqdm import tqdm, trange
 
+from data import TASK_ATTRS
 from distilled_data import DistilledData
 from model import LearnerModel
 from utils import average, batch_on_device
 
 logger = logging.getLogger(__name__)
-
-METRIC_LOAD_KEYS = {
-    "ag_news": ("accuracy",),
-    "cola": ("glue", "cola"),
-    "sst2": ("glue", "sst2"),
-    "qnli": ("glue", "qnli"),
-}
 
 
 class Metric:
@@ -32,8 +26,8 @@ class Metric:
     """
 
     def __init__(self, task_name):
-        assert task_name in METRIC_LOAD_KEYS
-        self.metric = evaluate.load(*METRIC_LOAD_KEYS[task_name])
+        assert task_name in TASK_ATTRS
+        self.metric = evaluate.load(*TASK_ATTRS[task_name]["metric_keys"])
         self.preprocess = preprocess_for_classification
 
     def add_batch(self, logits: torch.Tensor, labels: torch.Tensor):
