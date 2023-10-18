@@ -1,6 +1,6 @@
 base:
   experiment_name: ${data.task_name}.${model.model_name}
-  method: label_${distilled_data.label_type}.al_${distilled_data.attention_label_type}.lr_init_${distilled_data.lr_init}.distill_lr_${train.lr_inputs_embeds}
+  method: dpc_${distilled_data.data_per_label}.step_${learner_train.train_step}.bsz_${learner_train.batch_size_per_label}.label_${distilled_data.label_type}.al_${distilled_data.attention_label_type}.lr_init_${distilled_data.lr_init}.distill_lr_${train.lr_inputs_embeds}
   run_name: ${base.method}.${now:%Y-%m-%d.%H-%M-%S}
   save_dir_root: ./save
   save_method_dir: ${base.save_dir_root}/${base.experiment_name}/${base.method}
