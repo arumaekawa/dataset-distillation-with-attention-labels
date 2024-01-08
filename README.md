@@ -50,6 +50,8 @@ Directory structure:
    ```
    $ python src/main.py -m \
       data.task_name=sst2 \
+      distilled_data.label_type=unrestricted \
+      distilled_data.attention_label_type=cls \
       distilled_data.lr_init=0.01,0.1 \
       train.lr_inputs_embeds=0.1,0.01,0.001
    ```
